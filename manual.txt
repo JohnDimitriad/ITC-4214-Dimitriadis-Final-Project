@@ -1,0 +1,10 @@
+put static in mothership folder
+appname/static/appname/
+in here put css js and images
+
+{% load static %} at top of page
+<link href="{% static 'appname/styles.css' %} rel="stylesheet">
+
+
+appname/template/appname
+in here put html files
