@@ -33,15 +33,39 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home:index' %}">Home Page</a>
                     </li>
-                    <!-- Dark Mode Toggle Button in Navbar -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'products:product_list' %}">See Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'checkout:checkout' %}">Go to checkout</a>
+                    </li>
                     <li class="nav-item">
                         <button id="dark-mode-toggle" class="btn btn-outline-secondary nav-link">Enable Dark Mode</button>
                     </li>
                 </ul>
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav">
+                    <!-- If user is logged in, show "View Profile" and hide login/register -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:profile' %}">View Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:logout' %}">Logout</a>
+                    </li>
+                {% else %}
+                    <!-- If user is not logged in, show "Login" and "Register" -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:register' %}">Register</a>
+                    </li>
+                </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -49,27 +73,16 @@
     <!-- Welcome Section -->
     <div class="container my-5">
         <h2>Welcome to my Website!</h2>
-        <h3>This website's purpose is to just show some good movies and their posters. That's it.</h3>
-        <p>None of these movies exist either. We just show you fake movies. There are only fake movies here.</p>
-        <p>You can even google them. Won’t have any useful results. I checked</p>
-        <br>
-        <p>Here is an overview of our real movies</p>
-        <br><br><br>
-        <p>(This space is intentionally left blank)</p>
-        <br>
-        <h3>Our website also features a task board</h3>
-        <p>It allows you to add tasks of things you definitely not want to forget</p>
-        <p>Like watching a real movie instead of a fake one</p>
-        <p>You can also pretend to send us an email at the Contact Page</p>
+        <h3>This website's purpose is to </h3>
     </div>
 
-    <!-- Latest Activity -->
+    <!-- Latest Activity 
     <div class="container my-5">
         <h2>Latest Activity</h2>
         <ul id="activityList">
-            <!-- jQuery will dynamically add items here -->
         </ul>
     </div>
+    -->
 
     <!-- Footer -->
     <footer class="footer">
