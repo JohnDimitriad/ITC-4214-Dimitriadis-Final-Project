@@ -1,0 +1,76 @@
+/* Basic styling */
+body, .footer {
+    font-family: Arial, sans-serif;
+}
+
+/* Dark mode */
+body.dark-mode {
+    background-color: #474439;
+    color: #ffffff;
+}
+
+/* Basic styling */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Container for main content and footer */
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content should take up available space */
+.container {
+    flex: 1;
+}
+
+/* Navigation Styling */
+.navigation {
+    background-color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+.navigation a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    text-align: center;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+	font-size: 0.9rem;
+}
+
+.footer .social-media a {
+    color: #fff;
+    margin: 0 8px;
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+
+.carousel-item {
+	height: 200px;
+	width: 200px;
+}
+
+.carousel-item img {
+/* Make images cover the entire carousel area while maintaining aspect ratio */
+ height: 100%;
+width: auto;
+max-width: 100%;
+object-fit: cover; /* This property ensures the images are scaled properly */
+}
+
+.rating label {
+    margin: 0 10px;
+}

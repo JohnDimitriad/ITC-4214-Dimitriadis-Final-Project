@@ -1,0 +1,22 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta name="description" content="Checkout Page"/>
+    <meta http-equiv="Author" content="Ioannis Iason Dimitriadis"/>
+    <title>Checkout</title>
+    
+    <!-- CSS -->
+    <link href="{% static 'DimitriadisFinalProject/css/styles.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h2>Checkout</h2>
+        <form method="post">
+            {% csrf_token %}
+            <label for="card_number">Card Number:</label>
+            <input type="text" id="card_number" name="card_number">
+            <button type="submit" class="btn btn-primary">Place Order</button>
+        </form>
+    </div>
+</body>
+</html>

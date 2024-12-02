@@ -1,0 +1,22 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta name="description" content="Shopping Cart"/>
+    <meta http-equiv="Author" content="Ioannis Iason Dimitriadis"/>
+    <title>Your Cart</title>
+    
+    <!-- CSS -->
+    <link href="{% static 'DimitriadisFinalProject/css/styles.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h2>Your Shopping Cart</h2>
+        <ul>
+            {% for item in cart %}
+                <li>{{ item.name }} - ${{ item.price }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'checkout:checkout' %}" class="btn btn-primary">Proceed to Checkout</a>
+    </div>
+</body>
+</html>

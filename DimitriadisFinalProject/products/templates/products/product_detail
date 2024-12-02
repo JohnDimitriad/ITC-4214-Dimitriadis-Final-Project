@@ -1,0 +1,18 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta name="description" content="Movie Details"/>
+    <meta http-equiv="Author" content="Ioannis Iason Dimitriadis"/>
+    <title>{{ movie.title }}</title>
+    
+    <!-- CSS -->
+    <link href="{% static 'DimitriadisFinalProject/css/styles.css' %}" type="text/css" rel="stylesheet">
+</head>
+<body>
+    <div class="container my-5">
+        <h2>{{ movie.title }}</h2>
+        <img src="{% static 'DimitriadisFinalProject/images/{{ movie.image }}' %}" class="img-fluid">
+        <p>{{ movie.description }}</p>
+    </div>
+</body>
+</html>
