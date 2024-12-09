@@ -74,9 +74,41 @@
             <div class="card-body">
                 <h5 class="card-title">{{ movie.title }}</h5>
                 <p class="card-text">{{ movie.description }}</p>
+                <p><strong>Category:</strong> {{ movie.get_category_display }}</p>
                 <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
+                <p><strong>Average Rating:</strong> {{ movie.average_rating|default:0|floatformat:1 }} / 5</p>
                 <a href="{% url 'products:products' %}" class="btn btn-secondary">Back to Catalog</a>
             </div>
+        </div>
+
+        <div class="my-4">
+            <h3>Leave a Review</h3>
+            {% if user.is_authenticated %}
+                {% if user_review %}
+                    <p>You have already reviewed this movie: <strong>{{ user_review.rating }} Stars</strong></p>
+                    <p>{{ user_review.comment }}</p>
+                {% else %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                {% endif %}
+            {% else %}
+                <p><a href="{% url 'home:login' %}">Log in</a> to leave a review.</p>
+            {% endif %}
+        </div>
+
+        <div class="my-4">
+            <h3>Reviews</h3>
+            {% for review in reviews %}
+                <div class="border p-3 mb-3">
+                    <p><strong>{{ review.user.username }}:</strong> {{ review.rating }} Stars</p>
+                    <p>{{ review.comment }}</p>
+                </div>
+            {% empty %}
+                <p>No reviews yet. Be the first to review!</p>
+            {% endfor %}
         </div>
     </div>
 
@@ -85,6 +117,5 @@
         <img src="{% static 'DimitriadisFinalProject/images/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
         <p>Movies to Watch © 2024</p>
     </footer>
-
-    </body>
+</body>
 </html>

@@ -77,58 +77,42 @@
     
     <div class="container my-5">
         <h2>Add a New Movie</h2>
-        <form method="POST" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
+            
             <div class="mb-3">
-                <label for="id_title" class="form-label">Movie Title</label>
-                <input type="text" class="form-control" id="id_title" name="title" value="{{ form.title.value }}" required>
-                {% if form.title.errors %}
-                    <div class="invalid-feedback d-block">
-                        {% for error in form.title.errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                <label for="title" class="form-label">Movie Title</label>
+                <input type="text" id="title" name="title" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label for="id_description" class="form-label">Description</label>
-                <textarea class="form-control" id="id_description" name="description" rows="3" required>{{ form.description.value }}</textarea>
-                {% if form.description.errors %}
-                    <div class="invalid-feedback d-block">
-                        {% for error in form.description.errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="4" required></textarea>
             </div>
 
             <div class="mb-3">
-                <label for="id_release_date" class="form-label">Date of Release</label>
-                <input type="date" class="form-control" id="id_release_date" name="release_date" value="{{ form.release_date.value }}" required>
-                {% if form.release_date.errors %}
-                    <div class="invalid-feedback d-block">
-                        {% for error in form.release_date.errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                <label for="release_date" class="form-label">Release Date</label>
+                <input type="date" id="release_date" name="release_date" class="form-control" required>
             </div>
 
             <div class="mb-3">
-                <label for="id_image" class="form-label">Image</label>
-                <input type="file" class="form-control" id="id_image" name="image" accept="image/*" required>
-                {% if form.image.errors %}
-                    <div class="invalid-feedback d-block">
-                        {% for error in form.image.errors %}
-                            <p>{{ error }}</p>
-                        {% endfor %}
-                    </div>
-                {% endif %}
+                <label for="category" class="form-label">Category</label>
+                <select id="category" name="category" class="form-select" required>
+                    {% for key, value in categories.items %}
+                        <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Image</label>
+                <input type="file" id="image" name="image" class="form-control">
             </div>
 
             <button type="submit" class="btn btn-primary">Add Movie</button>
         </form>
+
+        <a href="{% url 'products:products' %}" class="btn btn-secondary mt-3">Back to Catalog</a>
     </div>
 
 
