@@ -80,7 +80,7 @@
     <div class="container my-5">
         <!-- Movie Details -->
         <div class="card">
-            <img src="{% static 'DimitriadisFinalProject/images/{{ movie.image }}' %}" class="card-img-top" alt="{{ movie.title }}">
+            <img src="/{{ movie.image }}" class="card-img-top" alt="{{ movie.title }}">
             <div class="card-body">
                 <h5 class="card-title">{{ movie.title }}</h5>
                 <p class="card-text">{{ movie.description }}</p>

@@ -13,7 +13,7 @@ class Movie(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     release_date = models.DateField()
-    image = models.CharField(max_length=255, blank=True, null=True)
+    image = models.ImageField(upload_to='media/', blank=True, null=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='action')
 
     def average_rating(self):

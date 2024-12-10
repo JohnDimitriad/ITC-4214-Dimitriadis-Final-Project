@@ -83,7 +83,11 @@
             {% for movie in movies %}
                 <div class="col-md-4 mb-4">
                     <div class="card h-100">
-                        <img src="{% static '/products/images/{{ movie.image }}' %}" class="card-img-top" alt="{{ movie.title }}">
+                        {% if movie.image %}
+                            <img src="/{{ movie.image }}" class="card-img-top" alt="{{ movie.title }}">
+                        {% else %}
+                            <img src="{% static 'DimitriadisFinalProject/images/default-image.jpg' %}" class="card-img-top" alt="Default Image">
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ movie.title }}</h5>
                             <p class="card-text">{{ movie.description|truncatechars:100 }}</p>
