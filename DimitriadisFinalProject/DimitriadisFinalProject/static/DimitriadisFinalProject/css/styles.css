@@ -58,19 +58,30 @@ body {
     text-decoration: none;
 }
 
-.carousel-item {
-	height: 200px;
-	width: 200px;
-}
-
-.carousel-item img {
-/* Make images cover the entire carousel area while maintaining aspect ratio */
- height: 100%;
-width: auto;
-max-width: 100%;
-object-fit: cover; /* This property ensures the images are scaled properly */
-}
-
 .rating label {
     margin: 0 10px;
+}
+.review-card {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review-details p {
+    margin: 0;
+    padding: 0;
+}
+
+.review-card p {
+    font-size: 16px;
+    color: #333;
+}
+
+#reviews-section {
+    margin-top: 30px;
+}
+
+#no-reviews-message {
+    font-size: 18px;
+    color: #888;
 }
