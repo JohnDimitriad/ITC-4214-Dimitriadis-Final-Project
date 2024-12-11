@@ -103,7 +103,12 @@
                     {% endfor %}
                 </select>
             </div>
-
+            
+            <div class="mb-3">
+                <label for="price" class="form-label">Price (EUR)</label>
+                <input type="number" id="price" name="price" class="form-control" step="0.01" required>
+            </div>
+            
             <div class="form-group">
                 <label for="movieImage">Upload Movie Image</label>
                 <input type="file" id="movieImage" name="image" class="form-control" onchange="previewImage(event)">

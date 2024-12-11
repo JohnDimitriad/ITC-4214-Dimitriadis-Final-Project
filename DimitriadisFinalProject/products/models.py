@@ -15,6 +15,7 @@ class Movie(models.Model):
     release_date = models.DateField()
     image = models.ImageField(upload_to='media/', blank=True, null=True)
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='action')
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
 
     def average_rating(self):
         reviews = self.reviews.all()

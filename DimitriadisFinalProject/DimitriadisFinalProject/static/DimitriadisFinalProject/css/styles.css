@@ -85,3 +85,30 @@ body {
     font-size: 18px;
     color: #888;
 }
+
+.review-card {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+.review-details p {
+    margin: 0;
+}
+
+/* Styling for the "No Reviews" message */
+#no-reviews-message {
+    font-size: 1.1rem;
+    color: #6c757d;
+}
+
+/* Review form background */
+#review-form {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#review-form button {
+    background-color: #007bff;
+    border-color: #007bff;
+}

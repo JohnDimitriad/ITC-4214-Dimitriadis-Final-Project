@@ -50,6 +50,7 @@ def product(request, product_id):
 
     return render(request, 'products/product.html', context)
 
+
 @user_passes_test(lambda u: u.is_superuser)
 def addproduct(request):
     categories = Movie.CATEGORY_CHOICES
