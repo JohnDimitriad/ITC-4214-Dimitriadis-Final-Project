@@ -75,9 +75,18 @@
         </div>
     </nav>
 
-    <!-- Movie Catalog and Category Filter -->
+    <!-- Main Content -->
     <div class="container my-5">
         <h1 class="mb-4">Movie Catalog</h1>
+
+        <!-- Search Bar -->
+        <div class="mb-4">
+            <label for="search_bar">Search Movies by Name:</label>
+            <div class="input-group">
+                <input type="text" id="search_bar" class="form-control" placeholder="Search for a movie...">
+                <button id="search_button" class="btn btn-primary">Search</button>
+            </div>
+        </div>
 
         <!-- Category Filter -->
         <div class="mb-4">
@@ -92,10 +101,11 @@
             </select>
         </div>
 
+        <!-- Display Movies -->
         <h2>All Movies</h2>
-        <div class="row">
+        <div id="movies_list" class="row">
             {% for movie in movies %}
-                <div class="col-md-4 mb-4">
+                <div class="col-md-4 mb-4 movie-item">
                     <div class="card h-100">
                         {% if movie.image %}
                             <img src="/{{ movie.image }}" class="card-img-top" alt="{{ movie.title }}">
@@ -114,6 +124,10 @@
                 </div>
             {% endfor %}
         </div>
+
+        {% if not movies %}
+            <p class="text-center">No movies found matching your criteria.</p>
+        {% endif %}
     </div>
 
     <!-- Footer -->

@@ -1,13 +1,21 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
 from .forms import MovieForm, ReviewForm
-from django.http import JsonResponse
-from django.contrib import messages
 from .models import Movie, Review
 
 def products(request):
+    query = request.GET.get('q', '') 
+    category = request.GET.get('category', '') 
+
+    # Filter movies based on search query and category
     movies = Movie.objects.all()
-    return render(request, 'products/products.html', {'movies': movies})
+    if query:
+        movies = movies.filter(title__icontains=query)
+    if category:
+        movies = movies.filter(category=category)
+    
+    context = {'movies': movies}
+    return render(request, 'products/products.html', context)
 
 def product(request, product_id):
     movie = get_object_or_404(Movie, id=product_id)
