@@ -87,14 +87,18 @@
                 <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
                 <p><strong>Average Rating:</strong> {{ movie.average_rating|default:0|floatformat:1 }} / 5</p>
                 
+                {% if user.is_authenticated%}
                 <!-- Add to Cart Button -->
                 <button id="add-to-cart" class="btn btn-primary" 
                         data-title="{{ movie.title }}" 
                         data-price="{{ movie.price }}">
                     Add to Cart
                 </button>
-                
+                {% endif %}                
                 <a href="{% url 'products:products' %}" class="btn btn-secondary">Back to Catalog</a>
+                {% if user.is_authenticated and user.is_superuser %}
+                    <a href="{% url 'products:editproduct' movie.id %}" class="btn btn-warning">Edit Product</a>
+                {% endif %}
             </div>
         </div>
 

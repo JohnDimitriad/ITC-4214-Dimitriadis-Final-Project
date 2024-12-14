@@ -63,3 +63,24 @@ def addproduct(request):
         form = MovieForm()
     
     return render(request, 'products/addproduct.html', {'form': form, 'categories': categories})
+
+def editproduct(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
+    categories = Movie.CATEGORY_CHOICES
+
+    if request.method == 'POST':
+        if 'edit' in request.POST:
+            # Edit movie
+            form = MovieForm(request.POST, request.FILES, instance=movie)
+            if form.is_valid():
+                form.save()
+                return redirect('products:products')
+        elif 'delete' in request.POST:
+            # Delete movie
+            movie.delete()
+            return redirect('products:products')
+
+    else:
+        form = MovieForm(instance=movie)
+
+    return render(request, 'products/editproduct.html', {'form': form, 'movie': movie, 'categories': categories})

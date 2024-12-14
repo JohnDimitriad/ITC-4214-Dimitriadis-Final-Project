@@ -2,9 +2,9 @@
 
 <html lang="en">
 <head>
-    <meta name="description" content="Movies Page"/>
+    <meta name="description" content="Edit a Movie"/>
     <meta http-equiv="Author" content="Ioannis Iason Dimitriadis"/>
-    <title>Movies Page</title>
+    <title>Edit Movie Page</title>
     
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -15,6 +15,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     
     <!-- JavaScript -->
+    <script src="{% static 'DimitriadisFinalProject/javascript/imagePreview.js' %}" defer></script>
     <script src="{% static 'DimitriadisFinalProject/javascript/darkmode.js' %}" defer></script>
     
     <!-- jQuery -->
@@ -48,12 +49,6 @@
                 </ul>
                 {% if user.is_authenticated %}
                 <ul class="navbar-nav">
-                    {% if user.is_superuser %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'products:addproduct' %}">Add a Product</a>
-                        </li>
-                    {% endif %}
-                    <!-- If user is logged in, show "View Profile" and hide login/register -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home:profile' %}">View Profile</a>
                     </li>
@@ -61,74 +56,81 @@
                         <a class="nav-link" href="{% url 'home:logout' %}">Logout</a>
                     </li>
                 {% else %}
-                    <!-- If user is not logged in, show "Login" and "Register" -->
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home:login' %}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home:register' %}">Register</a>
                     </li>
+                    {% if user.is_superuser %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'products:add_movie' %}">Superuser Changes</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 {% endif %}
             </div>
         </div>
     </nav>
-
-    <!-- Main Content -->
-    <div class="container my-5">
-        <h1 class="mb-4">Movie Catalog</h1>
-
-        <!-- Search Bar -->
-        <div class="mb-4">
-            <label for="search_bar">Search Movies by Name:</label>
-            <div class="input-group">
-                <input type="text" id="search_bar" class="form-control" placeholder="Search for a movie...">
-                <button id="search_button" class="btn btn-primary">Search</button>
-            </div>
-        </div>
-
-        <!-- Category Filter -->
-        <div class="mb-4">
-            <label for="category_filter">Filter by Category:</label>
-            <select name="category" id="category_filter" class="form-select">
-                <option value="">All Categories</option>
-                <option value="action">Action</option>
-                <option value="drama">Drama</option>
-                <option value="sci-fi">Science-Fiction</option>
-                <option value="comedy">Comedy</option>
-                <option value="thriller">Thriller</option>
-            </select>
-        </div>
-
-        <!-- Display Movies -->
-        <h2>All Movies</h2>
-        <div id="movies_list" class="row">
-            {% for movie in movies %}
-                <div class="col-md-4 mb-4 movie-item">
-                    <div class="card h-100">
-                        {% if movie.image %}
-                            <img src="/{{ movie.image }}" class="card-img-top" alt="{{ movie.title }}">
-                        {% else %}
-                            <img src="{% static 'DimitriadisFinalProject/images/default-image.jpg' %}" class="card-img-top" alt="Default Image">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ movie.title }}</h5>
-                            <p class="card-text">{{ movie.description|truncatechars:100 }}</p>
-                            <p class="text-muted"><strong>Category:</strong> {{ movie.get_category_display }}</p>
-                            <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
-                            <p>Price: €{{ movie.price }}</p>
-                            <a href="{% url 'products:product' movie.id %}" class="btn btn-primary">Check Details</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-
-        {% if not movies %}
-            <p class="text-center">No movies found matching your criteria.</p>
-        {% endif %}
-    </div>
     
+    <div class="container my-5">
+        <h2>Edit Movie: {{ movie.title }}</h2>
+        
+        <!-- Edit Form -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="title" class="form-label">Movie Title</label>
+                <input type="text" id="title" name="title" class="form-control" value="{{ movie.title }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="4" required>{{ movie.description }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="release_date" class="form-label">Release Date</label>
+                <input type="date" id="release_date" name="release_date" class="form-control" value="{{ movie.release_date|date:'Y-m-d' }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select id="category" name="category" class="form-select" required>
+                    {% for key, value in categories %}
+                        <option value="{{ key }}" {% if movie.category == key %}selected{% endif %}>{{ value }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="price" class="form-label">Price (EUR)</label>
+                <input type="number" id="price" name="price" class="form-control" step="0.01" value="{{ movie.price }}" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="movieImage">Upload Movie Image</label>
+                <input type="file" id="movieImage" name="image" class="form-control" onchange="previewImage(event)">
+            </div>
+            
+            <div class="form-group">
+                <img id="imagePreview" src="{% if movie.image %}{{ movie.image.url }}{% else %}#{% endif %}" alt="Image preview" style="display:block; width: 100px; height: auto;">
+            </div>
+        
+            <button type="submit" name="edit" class="btn btn-success mt-3">Save Changes</button>
+        </form>
+
+        <hr>
+
+        <!-- Delete Confirmation -->
+        <form method="POST">
+            {% csrf_token %}
+            <h4>Or, delete this movie</h4>
+            <button type="submit" name="delete" class="btn btn-danger mt-3">Delete Movie</button>
+        </form>
+
+        <a href="{% url 'products:product' movie.id %}" class="btn btn-secondary mt-3">Cancel</a>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
