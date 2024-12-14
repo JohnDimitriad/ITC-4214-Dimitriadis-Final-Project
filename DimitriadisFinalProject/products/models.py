@@ -5,7 +5,7 @@ class Movie(models.Model):
     CATEGORY_CHOICES = [
         ('action', 'Action'),
         ('drama', 'Drama'),
-        ('sci-fi', 'Science Fiction'),
+        ('sci-fi', 'Science-Fiction'),
         ('comedy', 'Comedy'),
         ('thriller', 'Thriller'),
     ]

@@ -95,7 +95,7 @@
                 <option value="">All Categories</option>
                 <option value="action">Action</option>
                 <option value="drama">Drama</option>
-                <option value="sci-fi">Science Fiction</option>
+                <option value="sci-fi">Science-Fiction</option>
                 <option value="comedy">Comedy</option>
                 <option value="thriller">Thriller</option>
             </select>
@@ -117,7 +117,7 @@
                             <p class="card-text">{{ movie.description|truncatechars:100 }}</p>
                             <p class="text-muted"><strong>Category:</strong> {{ movie.get_category_display }}</p>
                             <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
-                            <p><strong>Price:</strong> €{{ movie.price }}</p>
+                            <p>Price: €{{ movie.price }}</p>
                             <a href="{% url 'products:product' movie.id %}" class="btn btn-primary">Check Details</a>
                         </div>
                     </div>
