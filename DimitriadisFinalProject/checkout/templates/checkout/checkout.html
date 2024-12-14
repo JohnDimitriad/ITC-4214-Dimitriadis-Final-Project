@@ -33,7 +33,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home:index' %}">Home Page</a>
                     </li>
@@ -43,11 +43,31 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'checkout:checkout' %}">Go to checkout</a>
                     </li>
-                    <!-- Dark Mode Toggle Button in Navbar -->
                     <li class="nav-item">
                         <button id="dark-mode-toggle" class="btn btn-outline-secondary nav-link">Enable Dark Mode</button>
                     </li>
                 </ul>
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav">
+                    <!-- If user is logged in, show "View Profile" and hide login/register -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:profile' %}">View Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:logout' %}">Logout</a>
+                    </li>
+                {% endif %}
+                {% if not user.is_authenticated %}
+                <ul class="navbar-nav">
+                    <!-- If user is not logged in, show "Login" and "Register" -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:register' %}">Register</a>
+                    </li>
+                </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
