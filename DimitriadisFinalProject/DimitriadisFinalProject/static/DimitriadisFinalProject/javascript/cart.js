@@ -60,5 +60,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    const placeOrderButton = document.querySelector("button[type='submit']");
+    if (placeOrderButton) {
+        placeOrderButton.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            cart = [];
+            saveCart();
+
+            const cartContainer = document.querySelector("#cart-items");
+            const cartTotalContainer = document.querySelector("#cart-total");
+
+            cartContainer.innerHTML = "<p>Thank you for your order! The movie files have been sent to you via email</p>";
+            cartTotalContainer.textContent = "Total: $0.00";
+        });
+    }
+
     renderCartItems();
 });
