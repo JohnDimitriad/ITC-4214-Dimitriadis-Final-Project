@@ -17,6 +17,7 @@
     <!-- JavaScript -->
     <script src="{% static 'DimitriadisFinalProject/javascript/product.js' %}" defer></script>
     <script src="{% static 'DimitriadisFinalProject/javascript/darkmode.js' %}" defer></script>
+    <script src="{% static 'DimitriadisFinalProject/javascript/cart.js' %}" defer></script>
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -85,6 +86,14 @@
                 <p><strong>Category:</strong> {{ movie.get_category_display }}</p>
                 <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
                 <p><strong>Average Rating:</strong> {{ movie.average_rating|default:0|floatformat:1 }} / 5</p>
+                
+                <!-- Add to Cart Button -->
+                <button id="add-to-cart" class="btn btn-primary" 
+                        data-title="{{ movie.title }}" 
+                        data-price="{{ movie.price }}">
+                    Add to Cart
+                </button>
+                
                 <a href="{% url 'products:products' %}" class="btn btn-secondary">Back to Catalog</a>
             </div>
         </div>

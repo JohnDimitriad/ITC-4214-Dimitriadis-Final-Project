@@ -16,7 +16,7 @@
     
     <!-- JavaScript -->
     <script src="{% static 'DimitriadisFinalProject/javascript/darkmode.js' %}" defer></script>
-    <script src="{% static 'DimitriadisFinalProject/javascript/tasks.js' %}" defer></script>
+    <script src="{% static 'DimitriadisFinalProject/javascript/cart.js' %}" defer></script>
     
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -54,10 +54,13 @@
 
     <div class="container my-5">
         <h2>Checkout</h2>
+        <div id="cart-items" class="mb-4"></div>
+        <p id="cart-total" class="fw-bold"></p>
+    
         <form method="post">
             {% csrf_token %}
             <label for="card_number">Card Number:</label>
-            <input type="text" id="card_number" name="card_number">
+            <input type="text" id="card_number" name="card_number" required>
             <button type="submit" class="btn btn-primary">Place Order</button>
         </form>
     </div>
