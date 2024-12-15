@@ -50,7 +50,6 @@ def product(request, product_id):
 
     return render(request, 'products/product.html', context)
 
-
 @user_passes_test(lambda u: u.is_superuser)
 def addproduct(request):
     categories = Movie.CATEGORY_CHOICES
@@ -64,6 +63,7 @@ def addproduct(request):
     
     return render(request, 'products/addproduct.html', {'form': form, 'categories': categories})
 
+@user_passes_test(lambda u: u.is_superuser)
 def editproduct(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     categories = Movie.CATEGORY_CHOICES
