@@ -88,7 +88,7 @@
                         <div class="card-body">
                             <h5 class="card-title">{{ movie.title }}</h5>
                             <p class="card-text">{{ movie.description|truncatechars:100 }}</p>
-                            <p><strong>Average Rating:</strong> {{ movie.average_rating|default:"N/A" }}</p>
+                            <p><strong>Average Rating:</strong> {{ movie.average_rating|default:"N/A"|floatformat:1 }}</p>
                             <a href="{% url 'products:product' movie.id %}" class="btn btn-primary">Check Details</a>
                         </div>
                     </div>
