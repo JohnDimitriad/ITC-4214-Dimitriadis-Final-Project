@@ -26,7 +26,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'home:index' %}">
                 <img src="{% static 'DimitriadisFinalProject/images/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 Movies to (not) Watch
             </a>
@@ -39,7 +39,7 @@
                         <a class="nav-link" href="{% url 'home:index' %}">Home Page</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'products:products' %}">See Products</a>
+                        <a class="nav-link" href="{% url 'products:products' %}">See Movies</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'checkout:checkout' %}">Go to checkout</a>
@@ -91,7 +91,7 @@
                 
                 {% if user.is_authenticated%}
                 <!-- Add to Cart Button -->
-                <button id="add-to-cart" class="btn btn-primary" 
+                <button id="add-to-cart" type="submit" class="btn btn-primary" 
                         data-title="{{ movie.title }}" 
                         data-price="{{ movie.price }}">
                     Add to Cart
@@ -107,20 +107,19 @@
         <!-- Review Form Section -->
         <div class="my-4">
             <h3>Leave a Review</h3>
-            <div class="border rounded p-4" style="background-color: #a9a9a9;">
+            <div class="review-form-wrapper">
                 {% if user.is_authenticated %}
                     {% if user_review %}
-                    <div class="alert alert-info">
                         <p>You have already reviewed this movie: <strong>{{ user_review.rating }} Stars</strong></p>
                         <p>{{ user_review.comment }}</p>
-                    </div>
                     {% else %}
                         <form method="post" id="review-form">
                             {% csrf_token %}
-                            <div class="form-group mb-3">
+                            <div class="form-group">
                                 {{ form.as_p }}
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                            <button type="submit" id="review_button" class="btn btn-primary">Submit Review</button>
+                            <div id="review-message" class="mt-2 text-success"></div>
                         </form>
                     {% endif %}
                 {% else %}

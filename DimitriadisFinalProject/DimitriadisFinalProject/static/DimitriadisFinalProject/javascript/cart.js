@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const placeOrderButton = document.querySelector("button[type='submit']");
+    const placeOrderButton = document.querySelector("#place-order");
     if (placeOrderButton) {
         placeOrderButton.addEventListener("click", function (e) {
             e.preventDefault();

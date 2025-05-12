@@ -25,7 +25,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{% url 'home:index' %}">
                 <img src="{% static 'DimitriadisFinalProject/images/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
                 Movies to (not) Watch
             </a>
@@ -38,7 +38,7 @@
                         <a class="nav-link" href="{% url 'home:index' %}">Home Page</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'products:products' %}">See Products</a>
+                        <a class="nav-link" href="{% url 'products:products' %}">See Movies</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'checkout:checkout' %}">Go to checkout</a>
@@ -92,9 +92,9 @@
 
             <div class="mb-3">
                 <label for="release_date" class="form-label">Release Date</label>
-                <input type="date" id="release_date" name="release_date" class="form-control" required>
+                <input type="date" id="release_date" name="release_date" class="form-control" min="1900-01-01" required>
             </div>
-
+            
             <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
                 <select id="category" name="category" class="form-select" required>
@@ -103,10 +103,10 @@
                     {% endfor %}
                 </select>
             </div>
-            
+
             <div class="mb-3">
                 <label for="price" class="form-label">Price (EUR)</label>
-                <input type="number" id="price" name="price" class="form-control" step="0.01" required>
+                <input type="number" id="price" name="price" class="form-control" step="0.01" min="0.01" required>
             </div>
             
             <div class="form-group">
