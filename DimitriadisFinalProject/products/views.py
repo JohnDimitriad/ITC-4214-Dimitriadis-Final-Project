@@ -19,6 +19,7 @@ def products(request):
 
 def product(request, product_id):
     movie = get_object_or_404(Movie, id=product_id)
+
     reviews = Review.objects.filter(movie=movie)
     user_review = None
 
@@ -41,16 +42,22 @@ def product(request, product_id):
     else:
         form = None
 
+    # Get previous and next movies by ID
+    previous_movie = Movie.objects.filter(id__lt=movie.id).order_by('-id').first()
+    next_movie = Movie.objects.filter(id__gt=movie.id).order_by('id').first()
+
     context = {
         'movie': movie,
         'reviews': reviews,
         'user_review': user_review,
         'form': form,
+        'previous_movie': previous_movie,
+        'next_movie': next_movie,
     }
 
     return render(request, 'products/product.html', context)
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff)
 def addproduct(request):
     categories = Movie.CATEGORY_CHOICES
     if request.method == 'POST':
@@ -63,7 +70,7 @@ def addproduct(request):
     
     return render(request, 'products/addproduct.html', {'form': form, 'categories': categories})
 
-@user_passes_test(lambda u: u.is_superuser)
+@user_passes_test(lambda u: u.is_staff)
 def editproduct(request, movie_id):
     movie = get_object_or_404(Movie, id=movie_id)
     categories = Movie.CATEGORY_CHOICES

@@ -5,6 +5,7 @@
     <meta name="description" content="Edit a Movie"/>
     <meta http-equiv="Author" content="Ioannis Iason Dimitriadis"/>
     <title>Edit Movie Page</title>
+    <link rel="icon" href="{% static 'DimitriadisFinalProject/images/logo.png' %}" type="image/png">
     
     <!-- CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
@@ -62,9 +63,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'home:register' %}">Register</a>
                     </li>
-                    {% if user.is_superuser %}
+                    {% if user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'products:add_movie' %}">Superuser Changes</a>
+                            <a class="nav-link" href="{% url 'products:add_movie' %}">Staff Changes</a>
                         </li>
                     {% endif %}
                 </ul>
@@ -120,14 +121,14 @@
             <button type="submit" name="edit" class="btn btn-success mt-3">Save Changes</button>
         </form>
 
-        <hr>
-
-        <!-- Delete Confirmation -->
-        <form method="POST">
-            {% csrf_token %}
-            <h4>Or, delete this movie</h4>
-            <button type="submit" name="delete" class="btn btn-danger mt-3">Delete Movie</button>
-        </form>
+        {% if user.is_superuser %}
+            <!-- Delete Confirmation -->
+            <form method="POST">
+                {% csrf_token %}
+                <h4>Or, delete this movie</h4>
+                <button type="submit" name="delete" class="btn btn-danger mt-3">Delete Movie</button>
+            </form>
+        {% endif %}
 
         <a href="{% url 'products:product' movie.id %}" class="btn btn-secondary mt-3">Cancel</a>
     </div>

@@ -80,21 +80,6 @@ body {
 }
 
 #no-reviews-message {
-    font-size: 18px;
-    color: #888;
-}
-
-.review-card {
-    background-color: #f9f9f9;
-    border-radius: 5px;
-}
-
-.review-details p {
-    margin: 0;
-}
-
-/* Styling for the "No Reviews" message */
-#no-reviews-message {
     font-size: 1.1rem;
     color: #6c757d;
 }
@@ -118,9 +103,12 @@ body {
 }
 
 .card-img-top {
-    object-fit: cover;
-    height: 600px;
-    width: 100%;
+    width: 200px;
+    height: 300px;
+    object-fit: contain;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
 }
 
 .card {
@@ -134,4 +122,19 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.hidden {
+    display: none;
+}
+
+.carousel .card {
+    width: 90%;
+    max-width: 700px;
+}
+
+@media (max-width: 576px) {
+    .carousel .card-img-top {
+        height: 150px;
+    }
 }
