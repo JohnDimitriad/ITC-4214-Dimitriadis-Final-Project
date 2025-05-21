@@ -112,7 +112,7 @@
                         <div class="card h-100">
                             {% if movie.image %}
                                 <a href="{% url 'products:product' movie.id %}">
-                                    <img src="/{{ movie.image }}" class="card-img-top" alt="{{ movie.title }}">
+                                    <img src="/{{ movie.image }}" class="card-img-top" alt="{{ movie.title }}" style="width: 350px; height: 500px; object-fit: cover;">
                                 </a>
                             {% else %}
                                 <a href="{% url 'products:product' movie.id %}">

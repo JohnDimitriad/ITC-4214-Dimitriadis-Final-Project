@@ -129,8 +129,8 @@ body {
 }
 
 .carousel .card {
-    width: 90%;
-    max-width: 700px;
+    width: 95%;
+    max-width: 900px;
 }
 
 @media (max-width: 576px) {

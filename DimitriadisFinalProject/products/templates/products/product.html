@@ -1,166 +1,187 @@
 {% load static %}
 
 <html lang="en">
-    <head>
-        <meta name="description" content="Movie Description Page"/>
-        <meta http-equiv="Author" content="Ioannis Iason Dimitriadis"/>
-        <title>Movie Description</title>
-        <link rel="icon" href="{% static 'DimitriadisFinalProject/images/logo.png' %}" type="image/png">
-        
-        <!-- CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-        <link href="{% static 'DimitriadisFinalProject/css/styles.css' %}" type="text/css" rel="stylesheet">
-        
-        <!-- Bootstrap -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-        
-        <!-- JavaScript -->
-        <script src="{% static 'DimitriadisFinalProject/javascript/product.js' %}" defer></script>
-        <script src="{% static 'DimitriadisFinalProject/javascript/darkmode.js' %}" defer></script>
-        <script src="{% static 'DimitriadisFinalProject/javascript/cart.js' %}" defer></script>
+<head>
+    <meta name="description" content="Movie Description Page"/>
+    <meta http-equiv="Author" content="Ioannis Iason Dimitriadis"/>
+    <title>Movie Description</title>
+    <link rel="icon" href="{% static 'DimitriadisFinalProject/images/logo.png' %}" type="image/png">
 
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    </head>
-    <body {% if user.is_authenticated %}data-username="{{ user.username }}"{% endif %}>
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="{% url 'home:index' %}">
-                    <img src="{% static 'DimitriadisFinalProject/images/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-                    Movies to (not) Watch
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav me-auto">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link href="{% static 'DimitriadisFinalProject/css/styles.css' %}" type="text/css" rel="stylesheet">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript -->
+    <script src="{% static 'DimitriadisFinalProject/javascript/product.js' %}" defer></script>
+    <script src="{% static 'DimitriadisFinalProject/javascript/darkmode.js' %}" defer></script>
+    <script src="{% static 'DimitriadisFinalProject/javascript/cart.js' %}" defer></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body {% if user.is_authenticated %}data-username="{{ user.username }}"{% endif %}>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home:index' %}">
+                <img src="{% static 'DimitriadisFinalProject/images/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Movies to (not) Watch
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:index' %}">Home Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'products:products' %}">See Movies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'checkout:checkout' %}">Go to checkout</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="dark-mode-toggle" class="btn btn-outline-secondary nav-link">Enable Dark Mode</button>
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <ul class="navbar-nav">
+                    {% if user.is_staff %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home:index' %}">Home Page</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'products:products' %}">See Movies</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'checkout:checkout' %}">Go to checkout</a>
-                        </li>
-                        <li class="nav-item">
-                            <button id="dark-mode-toggle" class="btn btn-outline-secondary nav-link">Enable Dark Mode</button>
-                        </li>
-                    </ul>
-                    {% if user.is_authenticated %}
-                    <ul class="navbar-nav">
-                        {% if user.is_staff  %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'products:addproduct' %}">Add a Product</a>
-                            </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home:profile' %}">View Profile</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home:logout' %}">Logout</a>
+                            <a class="nav-link" href="{% url 'products:addproduct' %}">Add a Product</a>
                         </li>
                     {% endif %}
-                    {% if not user.is_authenticated %}
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home:login' %}">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home:register' %}">Register</a>
-                        </li>
-                    </ul>
-                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:profile' %}">View Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:logout' %}">Logout</a>
+                    </li>
+                </ul>
+                {% else %}
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:login' %}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home:register' %}">Register</a>
+                    </li>
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row justify-content-center align-items-start my-5 g-4">
+            {% if previous_movie %}
+            <div class="col-md-3 d-flex justify-content-end">
+                <div class="text-start">
+                    <a href="{% url 'products:product' previous_movie.id %}" class="text-decoration-none text-dark">
+                        <img src="/{{ previous_movie.image }}" alt="{{ previous_movie.title }}" class="card-img-top" style="width: 100%; max-width: 300px; height: 600px; object-fit: cover;">
+                        <div class="fw-bold mt-2 text-center">← Previous Movie</div>
+                    </a>
                 </div>
             </div>
-        </nav>
-        
-        <div class="container my-5">
-            <!-- Movie Details -->
-            <div class="d-flex justify-content-center">
-                <div class="card" style="max-width: 500px;">
-                    <img src="/{{ movie.image }}" alt="{{ movie.title }}" style="max-height: 700px; max-width: 500px; object-fit: contain;">
+            {% else %}
+                <div class="col-md-3"></div> <!-- Empty placeholder -->
+            {% endif %}
+
+            <div class="col-md-6 d-flex justify-content-center">
+                <div class="card w-100" style="max-width: 500px;">
+                    <img src="/{{ movie.image }}" alt="{{ movie.title }}" style="max-height: 700px; object-fit: contain;">
                     <div class="card-body">
                         <h5 class="card-title">{{ movie.title }}</h5>
                         <p class="card-text">{{ movie.description }}</p>
                         <p><strong>Category:</strong> {{ movie.get_category_display }}</p>
                         <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
                         <p><strong>Average Rating:</strong> {{ movie.average_rating|default:0|floatformat:1 }} / 5</p>
-                        
+
                         {% if user.is_authenticated %}
-                        <!-- Buttons container with consistent width and spacing -->
                         <div class="d-flex gap-3 my-3 flex-wrap align-items-center">
                             <div class="d-flex align-items-center">
-                                <!-- Quantity Counter -->
                                 <input id="quantity" type="number" value="1" min="1" class="form-control me-2" style="width: 60px;">
-                                <!-- Add to Cart Button -->
                                 <button id="add-to-cart" type="button" class="btn btn-primary btn-fixed-width" data-title="{{ movie.title }}" data-price="{{ movie.price }}">
                                     Add to Cart
                                 </button>
                             </div>
-
                             <a href="{% url 'products:products' %}" class="btn btn-secondary btn-fixed-width">Back to Catalog</a>
-
                             {% if user.is_authenticated and user.is_staff %}
                                 <a href="{% url 'products:editproduct' movie.id %}" class="btn btn-warning btn-fixed-width">Edit Product</a>
                             {% endif %}
                         </div>
-                        {% endif %}                
-
+                        {% endif %}
                     </div>
                 </div>
             </div>
 
-            <!-- Review Form Section -->
-            <div class="my-4">
-                <h3>Leave a Review</h3>
-                <div class="review-form-wrapper">
-                    {% if user.is_authenticated %}
-                        {% if user_review %}
-                            <p>You have already reviewed this movie: <strong>{{ user_review.rating }} Stars</strong></p>
-                            <p>{{ user_review.comment }}</p>
-                        {% else %}
-                            <form method="post" id="review-form">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    {{ form.as_p }}
-                                </div>
-                                <button type="submit" id="review_button" class="btn btn-primary">Submit Review</button>
-                                <div id="review-message" class="mt-2 text-success"></div>
-                            </form>
-                        {% endif %}
-                    {% else %}
-                        <p><a href="{% url 'home:login' %}">Log in</a> to leave a review.</p>
-                    {% endif %}
+            {% if next_movie %}
+            <div class="col-md-3 d-flex justify-content-start">
+                <div class="text-end">
+                    <a href="{% url 'products:product' next_movie.id %}" class="text-decoration-none text-dark">
+                        <img src="/{{ next_movie.image }}" alt="{{ next_movie.title }}" class="card-img-top" style="width: 100%; max-width: 300px; height: 600px; object-fit: cover;">
+                        <div class="fw-bold mt-2 text-center">Next Movie→</div>
+                    </a>
                 </div>
             </div>
+            {% else %}
+                <div class="col-md-3"></div> <!-- Empty placeholder -->
+            {% endif %}
+        </div>
 
-            <!-- Reviews Section -->
-            <div class="my-4" id="reviews-section">
-                <h3>Reviews</h3>
-                <div id="reviews-wrapper">
-                    {% if reviews %}
-                        {% for review in reviews %}
-                            <div class="border p-3 mb-3 review-card">
-                                <div class="review-details">
-                                    <p><strong>{{ review.user.username }}:</strong> {{ review.rating }} Stars</p>
-                                    <p>{{ review.comment }}</p>
-                                </div>
-                            </div>
-                        {% endfor %}
+        <!-- Review Form Section -->
+        <div class="my-4">
+            <h3>Leave a Review</h3>
+            <div class="review-form-wrapper">
+                {% if user.is_authenticated %}
+                    {% if user_review %}
+                        <p>You have already reviewed this movie: <strong>{{ user_review.rating }} Stars</strong></p>
+                        <p>{{ user_review.comment }}</p>
                     {% else %}
-                        <p id="no-reviews-message">No reviews yet. Be the first to review!</p>
+                        <form method="post" id="review-form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.as_p }}
+                            </div>
+                            <button type="submit" id="review_button" class="btn btn-primary">Submit Review</button>
+                            <div id="review-message" class="mt-2 text-success"></div>
+                        </form>
                     {% endif %}
-                </div>
+                {% else %}
+                    <p><a href="{% url 'home:login' %}">Log in</a> to leave a review.</p>
+                {% endif %}
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="footer">
-            <img src="{% static 'DimitriadisFinalProject/images/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-            <p>Movies to Watch © 2024</p>
-        </footer>
-    </body>
+        <!-- Reviews Section -->
+        <div class="my-4" id="reviews-section">
+            <h3>Reviews</h3>
+            <div id="reviews-wrapper">
+                {% if reviews %}
+                    {% for review in reviews %}
+                        <div class="border p-3 mb-3 review-card">
+                            <div class="review-details">
+                                <p><strong>{{ review.user.username }}:</strong> {{ review.rating }} Stars</p>
+                                <p>{{ review.comment }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p id="no-reviews-message">No reviews yet. Be the first to review!</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <img src="{% static 'DimitriadisFinalProject/images/logo.png' %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+        <p>Movies to Watch © 2024</p>
+    </footer>
+</body>
 </html>
